@@ -34,18 +34,18 @@ spec:
         image: #@ data.values.petclinic.image
         ports:
         - containerPort: 8080
-        readinessProbe:
-          httpGet:
-            path: /actuator/health/readiness
-            port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /actuator/health/liveness
-            port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 3
+        # readinessProbe:
+        #   httpGet:
+        #     path: /actuator/health/readiness
+        #     port: 8080
+        #   initialDelaySeconds: 25
+        #   periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /actuator/health/liveness
+        #     port: 8080
+        #   initialDelaySeconds: 25
+        #   periodSeconds: 3
         env:
         - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
           valueFrom:
