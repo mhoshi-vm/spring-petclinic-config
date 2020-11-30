@@ -63,8 +63,17 @@ spec:
           value: petclinic
         - name: spring_profiles_active
           value: mysql
+        - name: PETCLINIC_DB_TYPE
+          value: mysql
+        - name: PETCLINIC_DB_INSTANCE
+          value: petclinic
+        - name: MYSQL_PASS
+          valueFrom:
+            secretKeyRef:
+              name: petclinic-db-mariadb
+              key: mariadb-password
         - name: MYSQL_URL
-          value: "jdbc:mysql://petclinic-db-mysql/petclinic"
+          value: "jdbc:mysql://petclinic-db-mariadb/petclinic"
 ---
 apiVersion: v1
 kind: Service
@@ -89,13 +98,10 @@ metadata:
   labels:
     app: spring-petclinic
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-contour-cluster-issuer
-    ingress.kubernetes.io/force-ssl-redirect: "true"
     kubernetes.io/ingress.class: contour
-    kubernetes.io/tls-acme: "true"
 spec:
   tls:
-  - secretName: petclinic-tls
+  - secretName: petclinic-tls-secret
     hosts:
     - #@ data.values.petclinic.host
   rules:
