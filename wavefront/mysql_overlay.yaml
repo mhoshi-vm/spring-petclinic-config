@@ -1,0 +1,10 @@
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:data", "data")
+
+#@ mysql_server = '["' + data.values.petclinic.wavefront.mysql_user + ':' + data.values.petclinic.wavefront.mysql_pass + '@tcp(${host}:${port})/?tls=false"]'
+
+#@overlay/match by=overlay.subset({"metadata": {"name": "mysql-collector"}})
+---
+data:
+  #@overlay/replace via=lambda a,_: a.replace('mysql_server', mysql_server)
+  collector.yaml: |

@@ -1,0 +1,39 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-collector
+  namespace: tanzu-observability-saas
+  annotations:
+    # This annotation is required for runtime configurations
+    wavefront.com/discovery-config: 'true'
+data:
+  collector.yaml: |
+    # specify a list of discovery rules (plugins)
+    plugins:
+    # memcached
+    - name: mysql
+      type: telegraf/mysql 
+      selectors:
+        labels:
+          app.kubernetes.io/instance:
+          - petclinic-db
+        namespaces:
+        - petclinic
+      port: 3306
+      collection:
+        interval: "180s"
+      conf: |
+        servers = mysql_server
+        perf_events_statements_digest_text_limit  = 120
+        perf_events_statements_limit              = 250
+        perf_events_statements_time_limit         = 86400
+        table_schema_databases                    = []
+        gather_process_list                       = true
+        gather_table_io_waits                     = true
+        gather_table_lock_waits                   = true
+        gather_index_io_waits                     = true
+        gather_event_waits                        = true
+        gather_file_events_stats                  = true
+        interval_slow                             = "30m"
