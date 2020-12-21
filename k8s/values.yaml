@@ -1,9 +1,11 @@
 #@data/values
 ---
+ingress_class: istio
 petclinic:
   host: ""
   image: ""
   wavefront:
     applicationName: ""
-    uri: ""
-    apiToken: ""
+    mysql_user: dummy
+    mysql_pass: dummy
+    
