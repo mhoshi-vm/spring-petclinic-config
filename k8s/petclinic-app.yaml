@@ -17,8 +17,14 @@ spec:
       labels:
         app: spring-petclinic
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: spring-petclinic
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
         image: #@ data.values.petclinic.image
         ports:
         - containerPort: 8080
@@ -82,6 +88,7 @@ metadata:
   labels:
     app: spring-petclinic
   annotations:
+    kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.class: #@ data.values.ingress_class
 spec:
   tls:
