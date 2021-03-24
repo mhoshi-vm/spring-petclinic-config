@@ -1,0 +1,5 @@
+#@data/values
+---
+petclinic:
+  host: petclinic.lespaulstudioplus.info
+  image: harbor.lespaulstudioplus.info/build/petclinic@sha256:963e4b8c052f49aa82f46c4126c8d42aceb628053018f65d1f483f4de2190eda
