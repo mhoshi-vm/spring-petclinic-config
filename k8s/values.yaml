@@ -2,10 +2,8 @@
 ---
 ingress_class: istio
 petclinic:
-  host: ""
-  image: ""
+  host: "petclinic-argo.lespaulstudioplus.info"
+  image: "ghcr.io/mhoshi-vm/spring-petclinic:2.3.0.BUILD-SNAPSHOT"
   wavefront:
-    applicationName: ""
-    mysql_user: dummy
-    mysql_pass: dummy
+    applicationName: "argocd-petclinic"
     
