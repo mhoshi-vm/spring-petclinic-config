@@ -53,13 +53,6 @@ spec:
           value: mysql
         - name: PETCLINIC_DB_INSTANCE
           value: petclinic
-        - name: MYSQL_PASS
-          valueFrom:
-            secretKeyRef:
-              name: petclinic-db-mariadb
-              key: mariadb-password
-        - name: MYSQL_URL
-          value: jdbc:mysql://petclinic-db-mariadb/petclinic
 ---
 apiVersion: v1
 kind: Service
