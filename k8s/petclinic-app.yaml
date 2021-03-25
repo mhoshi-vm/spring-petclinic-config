@@ -41,16 +41,10 @@ spec:
           initialDelaySeconds: 25
           periodSeconds: 10
         env:
-        - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
-          value: proxy://wavefront-proxy-tanzu.tanzu-observability-saas.svc.cluster.local:2878
         - name: MANAGEMENT_HEALTH_PROBES_ENABLED
           value: "true"
         - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
           value: health,info,wavefront
-        - name: WAVEFRONT_APPLICATION_NAME
-          value: #@ data.values.petclinic.wavefront.applicationName
-        - name: WAVEFRONT_APPLICATION_SERVICE
-          value: petclinic
         - name: PETCLINIC_DB_TYPE
           value: mysql
         - name: PETCLINIC_DB_INSTANCE
