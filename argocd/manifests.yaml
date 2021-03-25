@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-petclinic
+  namespace: petclinic
+  labels:
+    app: spring-petclinic
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-petclinic
+  template:
+    metadata:
+      labels:
+        app: spring-petclinic
+    spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+      - name: spring-petclinic
+        securityContext:
+          allowPrivilegeEscalation: false
+          privileged: false
+        image: harbor.lespaulstudioplus.info/build/petclinic@sha256:edd685fd59086f35ef98b3002c857c5769d40e4da358b8c7f3b11d639c76d442
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 25
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 25
+          periodSeconds: 10
+        env:
+        - name: MANAGEMENT_HEALTH_PROBES_ENABLED
+          value: "true"
+        - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+          value: health,info,wavefront
+        - name: PETCLINIC_DB_TYPE
+          value: mysql
+        - name: PETCLINIC_DB_INSTANCE
+          value: petclinic
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-petclinic
+  namespace: petclinic
+  labels:
+    app: spring-petclinic
+spec:
+  selector:
+    app: spring-petclinic
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spring-petclinic
+  namespace: petclinic
+  labels:
+    app: spring-petclinic
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.class: istio
+spec:
+  tls:
+  - secretName: petclinic-tls-secret
+    hosts:
+    - petclinic.lespaulstudioplus.info
+  rules:
+  - host: petclinic.lespaulstudioplus.info
+    http:
+      paths:
+      - backend:
+          serviceName: spring-petclinic
+          servicePort: 8080
