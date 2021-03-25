@@ -74,7 +74,7 @@ metadata:
     app: spring-petclinic
   annotations:
     kubernetes.io/ingress.allow-http: "false"
-    kubernetes.io/ingress.class: #@ data.values.ingress_class
+    kubernetes.io/ingress.class: istio
 spec:
   tls:
   - secretName: petclinic-tls-secret
