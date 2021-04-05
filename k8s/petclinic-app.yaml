@@ -32,14 +32,14 @@ spec:
           httpGet:
             path: /actuator/health/readiness
             port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 10
+          initialDelaySeconds: 60
+          periodSeconds: 30
         livenessProbe:
           httpGet:
             path: /actuator/health/liveness
             port: 8080
-          initialDelaySeconds: 25
-          periodSeconds: 10
+          initialDelaySeconds: 60
+          periodSeconds: 30
         env:
         - name: MANAGEMENT_METRICS_EXPORT_WAVEFRONT_URI
           value: proxy://wavefront-proxy-tanzu.tanzu-observability-saas.svc.cluster.local:2878
