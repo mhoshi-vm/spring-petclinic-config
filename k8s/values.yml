@@ -2,4 +2,4 @@
 ---
 petclinic:
   host: petclinic.lespaulstudioplus.info
-  image: harbor.lespaulstudioplus.info/build/petclinic@sha256:620e576ed89ec2d3d2c45b6a3036032bfb0641c1fdd4ad71089c30d00b8b68a0
+  image: harbor.lespaulstudioplus.info/build/petclinic@sha256:1bd5e45cde271e6f7405095f14159f865354f6e941a33732aadb894908387a7b
