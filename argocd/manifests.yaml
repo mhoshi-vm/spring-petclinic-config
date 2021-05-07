@@ -23,7 +23,7 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           privileged: false
-        image: harbor.lespaulstudioplus.info/build/petclinic@sha256:c245e2358e0c509ad6f922c1b583c04af61c31f83a2930dace7e8ceb0109cf6c
+        image: harbor.lespaulstudioplus.info/build/petclinic@sha256:9a0016b73ab7c1b09ebd93d96e088bab2f128742f1eb6571ccb911c5a2b7efed
         ports:
         - containerPort: 8080
         readinessProbe:
